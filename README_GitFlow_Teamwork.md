@@ -1,0 +1,9 @@
+# TO DO LIST APP - MAHOUCHESTER.
+
+### Nuestro equipo.
+- Jhener Albarado Mamani.
+- Jaume Climent ....
+- James Brown ...
+- Mykhailo ...
+
+
