@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="fragments :: head (titulo='Detalles del Equipo')"></head>
+
+    <body>
+        <nav th:replace="fragments :: menu"></nav>
+
+        <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-12">
+                <h2>Miembros del Equipo: <span th:text="${equipo.nombre}" class="text-primary">Nombre del Equipo</span></h2>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <div th:if="${usuarioEnEquipo}">
+                    <form th:action="@{/equipos/{id}/salir(id=${equipo.id})}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Salir del Equipo</button>
+                    </form>
+                </div>
+                <div th:if="${not usuarioEnEquipo}">
+                    <form th:action="@{/equipos/{id}/unirse(id=${equipo.id})}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-success">Unirse al Equipo</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.id}">1</td>
+                    <td th:text="${usuario.nombre}">John Doe</td>
+                    <td th:text="${usuario.email}">johndoe@email.com</td>
+                </tr>
+                <tr th:if="${usuarios.empty}">
+                    <td colspan="3" class="text-center text-muted">Aún no hay miembros asignados a este equipo.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/equipos}" class="btn btn-secondary mt-3">Volver al listado de equipos</a>
+        <a th:href="@{/misequipos}" class="btn btn-info mt-3">Ver Mis Equipos</a>
+    </div>
+</body>
+</html>
