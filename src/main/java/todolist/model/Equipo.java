@@ -20,11 +20,8 @@ public class Equipo implements Serializable {
     @NotNull
     private String nombre;
 
-    // Declaramos el tipo de recuperacion como LAZY
-    // No haría falta porque es el tipo por defecto en una relacion muchos a muchos.
-    // Al recuperar un equipo NO SE RECUPERA AUTOMATICAMENTE la lista de usuarios.
-    // Sólo recupera cuando se accesde al atributo 'usuarios'; entonces se genera una query en la
-    // BD que devuelve todos los usuarios del equipo y rellena el atributo.
+    @Column(length = 500)
+    private String descripcion;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "equipo_usuario",
@@ -32,37 +29,51 @@ public class Equipo implements Serializable {
                inverseJoinColumns = {@JoinColumn(name = "fk_usuario")})
     Set<Usuario> usuarios = new HashSet<>();
 
-    //Constructor vacio necesario para hibernate
-    //No usarse desde la applicación
     public Equipo(){}
 
-    public  Equipo(String nombre)
-    {
+    public Equipo(String nombre) {
         this.nombre = nombre;
     }
 
-    public Long getId() {return id;}
+    public Equipo(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
 
-    public void setId(Long id){this.id = id;}
+    public Long getId() {
+        return id;
+    }
 
-    public String getNombre() {return nombre;}
+    public void setId(Long id){
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public Set<Usuario> getUsuarios(){return usuarios;}
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Set<Usuario> getUsuarios(){
+        return usuarios;
+    }
 
     public void addUsuario(Usuario usuario){
-        // Hay que actualizar ambas colecciones, porque JPA/Hibernate
-        // no lo hace automáticamente.
         this.getUsuarios().add(usuario);
         usuario.getEquipos().add(this);
     }
 
     public void removeUsuario(Usuario usuario){
-        // Hay que actualizar ambas colecciones, porque JPA/Hibernate
-        // no lo hace automáticamente.
         this.getUsuarios().remove(usuario);
         usuario.getEquipos().remove(this);
     }
@@ -72,13 +83,16 @@ public class Equipo implements Serializable {
         if(this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipo equipo = (Equipo) o;
-        if (id != null && equipo.id != null)
-            // Si tenemos los ID, comparamos por ID
+
+        if (id != null && equipo.id != null) {
             return Objects.equals(id, equipo.id);
-        // si no comparamos por campos obligatorios
+        }
+
         return nombre.equals(equipo.nombre);
     }
 
     @Override
-    public int hashCode() {return Objects.hash(id, nombre);}
+    public int hashCode() {
+        return Objects.hash(id, nombre);
+    }
 }

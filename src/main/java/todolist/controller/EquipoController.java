@@ -39,7 +39,10 @@ public class EquipoController {
             return "redirect:/login";
         }
 
-        EquipoData equipoCreado = equipoService.crearEquipo(equipoData.getNombre());
+        EquipoData equipoCreado = equipoService.crearEquipo(
+            equipoData.getNombre(),
+            equipoData.getDescripcion()
+    );
         equipoService.addUsuarioAEquipo(equipoCreado.getId(), usuarioLogeadoId);
         flash.addFlashAttribute("mensaje", "Equipo creado correctamente");
         return "redirect:/equipos";

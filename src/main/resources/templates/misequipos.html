@@ -29,6 +29,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nombre del Equipo</th>
+                        <th scope="col">Descripción</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -36,7 +37,12 @@
                     <tr th:each="equipo : ${equipos}">
                         <td th:text="${equipo.id}">1</td>
                         <td>
-                            <a th:href="@{/equipos/{id}(id=${equipo.id})}" th:text="${equipo.nombre}" class="font-weight-bold">Nombre</a>
+                            <a th:href="@{/equipos/{id}(id=${equipo.id})}"
+                               th:text="${equipo.nombre}"
+                               class="font-weight-bold">Nombre</a>
+                        </td>
+                        <td th:text="${equipo.descripcion != null && !equipo.descripcion.isEmpty() ? equipo.descripcion : 'Sin descripción'}">
+                            Sin descripción
                         </td>
                         <td>
                             <a th:href="@{/equipos/{id}(id=${equipo.id})}" class="btn btn-sm btn-info">Ver Detalles</a>
