@@ -18,9 +18,26 @@
                     <form method="post" th:action="@{/equipos/nuevo}" th:object="${equipoData}">
                         <div class="form-group">
                             <label for="nombre">Nombre del Equipo</label>
-                            <input id="nombre" class="form-control" name="nombre" placeholder="Nombre del equipo" type="text" th:field="*{nombre}" required/>
+                            <input id="nombre"
+                                   class="form-control"
+                                   name="nombre"
+                                   placeholder="Nombre del equipo"
+                                   type="text"
+                                   th:field="*{nombre}"
+                                   required/>
                         </div>
-                        <div class="text-center">
+                    
+                        <div class="form-group mt-3">
+                            <label for="descripcion">Descripción del Equipo</label>
+                            <textarea id="descripcion"
+                                      class="form-control"
+                                      name="descripcion"
+                                      placeholder="Describe brevemente el equipo"
+                                      th:field="*{descripcion}"
+                                      rows="3"></textarea>
+                        </div>
+                    
+                        <div class="text-center mt-3">
                             <button type="submit" class="btn btn-primary">Crear Equipo</button>
                             <a class="btn btn-link" th:href="@{/equipos}">Cancelar</a>
                         </div>

@@ -1,12 +1,12 @@
 package todolist.dto;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 public class EquipoData {
 
     private Long id;
     private String nombre;
+    private String descripcion;
 
     public Long getId() {
         return id;
@@ -24,20 +24,30 @@ public class EquipoData {
         this.nombre = nombre;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o){return true;}
         if (!(o instanceof EquipoData)) return false;
+
         EquipoData that = (EquipoData) o;
-        if (id != null && that.id != null)
+
+        if (id != null && that.id != null) {
             return Objects.equals(id, that.id);
-        //Si no comparamos campos obligatorios.
+        }
+
         return nombre.equals(that.nombre);
     }
 
     @Override
     public int hashCode() {
-        // hash basado en campos obligatorios.
         return Objects.hash(nombre);
     }
 }

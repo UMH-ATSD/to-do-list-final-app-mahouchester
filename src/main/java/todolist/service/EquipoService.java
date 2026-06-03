@@ -34,8 +34,13 @@ public class EquipoService {
 
     @Transactional
     public EquipoData crearEquipo(String nombre){
+        return crearEquipo(nombre, null);
+    }
+    
+    @Transactional
+    public EquipoData crearEquipo(String nombre, String descripcion){
         logger.debug("Creando equipo " + nombre + " en el repositorio");
-        Equipo equipo = new Equipo(nombre);
+        Equipo equipo = new Equipo(nombre, descripcion);
         equipoRepository.save(equipo);
         return modelMapper.map(equipo, EquipoData.class);
     }
