@@ -33,6 +33,10 @@ This command is expected to fail with an `UnknownHostException` because `host-pr
 
 ![DockerHub image](media/dockerhub-image.png)
 
+link: 
+hub.docker.com/repository/docker/jamesbobbrown/todolist-mahouchester/general
+
+
 ## To test the image with the Postgres profile and a custom database host, run:
 
 docker run --rm jamesbobbrown/todolist-mahouchester:1.3.0-snapshot --spring.profiles.active=postgres --POSTGRES_HOST=host-prueba
