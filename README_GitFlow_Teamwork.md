@@ -92,3 +92,87 @@ SELECT * FROM usuarios;
 Below is the terminal screenshot showing the internal database tables and the successfully persistent test user account:
 
  <img width="1533" height="833" alt="doker+postgres_test_user" src="https://github.com/user-attachments/assets/65f702e6-d59c-476e-bf97-47fc4d69054a" />
+
+## Phase 5 - Data Schema and Production Profile
+
+As part of Phase 5, a PostgreSQL production environment was configured and validated.
+
+### 1. Issue and Branch Creation
+
+An issue called **"Data Schema and Production Profile"** was created and assigned to Mykhailo Krasin.
+
+The branch used for development was:
+
+```text
+data-schema
+```
+
+![Issue created](media/phase_5/01_issue_phase5.png)
+
+---
+
+### 2. PostgreSQL Deployment
+
+A PostgreSQL 13 container was started using Docker and connected to the application.
+
+![PostgreSQL container running](media/phase_5/02_postgres_running.png)
+
+---
+
+### 3. PostgreSQL Profile and Schema Generation
+
+The application was launched using the `postgres` profile. Hibernate generated the database schema and created all required tables.
+
+![Postgres profile running](media/phase_5/03_postgres_profile_running.png)
+
+![Database tables created](media/phase_5/04_tables_created.png)
+
+The database schema was exported using pg_dump and stored as:
+
+```text
+sql/schema-1.2.0.sql
+```
+
+---
+
+### 4. Production Profile Validation
+
+A dedicated production profile was created:
+
+```text
+src/main/resources/application-postgres-prod.properties
+```
+
+with:
+
+```properties
+spring.jpa.hibernate.ddl-auto=validate
+```
+
+The database schema was intentionally removed to verify that the application correctly fails during startup when required tables are missing.
+
+![Empty database](media/phase_5/05_empty_database.png)
+
+The application failed with:
+
+```text
+Schema-validation: missing table [equipo_usuario]
+```
+
+![Validation failure](media/phase_5/06_validate_failure.png)
+
+After restoring the schema from `schema-1.2.0.sql`, the application started successfully.
+
+![Validation success](media/phase_5/07_validate_success.png)
+
+---
+
+### 5. Database Backup
+
+A PostgreSQL backup was generated and stored as:
+
+```text
+sql/backup08062026.sql
+```
+
+This backup can be used to restore the database state and verify schema integrity.
