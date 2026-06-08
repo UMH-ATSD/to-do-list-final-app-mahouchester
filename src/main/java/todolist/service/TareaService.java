@@ -43,6 +43,19 @@ public class TareaService {
         return modelMapper.map(tarea, TareaData.class);
     }
 
+    //para que accepte los tests , al meter un nuevo dato (fecha de finalizacion)
+    @Transactional
+    public TareaData nuevaTareaUsuario(Long idUsuario, String tituloTarea) {
+        return nuevaTareaUsuario(idUsuario, tituloTarea, null);
+    }
+
+
+    @Transactional
+    public TareaData modificaTarea(Long idTarea, String nuevoTitulo) {
+        return modificaTarea(idTarea, nuevoTitulo, null);
+    }
+
+
     @Transactional(readOnly = true)
     public List<TareaData> allTareasUsuario(Long idUsuario) {
         logger.debug("Devolviendo todas las tareas del usuario " + idUsuario);
