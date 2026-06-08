@@ -16,6 +16,24 @@ After evaluating the previous iterations of the project, the team has agreed to 
 development based on the version originally built by **Jaume Climent** and **Jhener**,
 which was selected as the foundation for **v1.3.0**.
 
+## Task 4 - Team Description Feature
+
+As part of the fourth task, a new feature was added to improve the team management functionality of the application.
+
+The implemented feature consists of adding a **description field for teams**. This allows each team to include additional information about its purpose, objectives, or general details. With this improvement, teams are easier to identify and manage inside the application.
+
+The team description feature was integrated into the existing team functionality and connected with the database so that the description can be saved and retrieved correctly.
+
+This feature includes:
+
+- A new description attribute for teams.
+- Support for storing additional information about each team.
+- Integration with the existing team management logic.
+- Database persistence for the team description.
+- Compatibility with the PostgreSQL profile used in the Docker deployment.
+
+
+
 ## DockerHub Image
 
 The Docker image for this project has been published to DockerHub.
