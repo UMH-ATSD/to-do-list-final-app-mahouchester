@@ -38,7 +38,27 @@ This feature includes:
 
 The Docker image for this project has been published to DockerHub.
 
-**DockerHub image:**
+### Current Release Image (v1.3.0)
+
+**DockerHub Image:**
+
+```bash
+jheneralbarado/todolist-mahouchester:1.3.0
+```
+
+To download the image, run:
+
+```bash
+docker pull jheneralbarado/todolist-mahouchester:1.3.0
+```
+
+**DockerHub Repository Link:** [https://hub.docker.com/repository/docker/jheneralbarado/todolist-mahouchester/general]
+
+**GitHub Repository Link:** [https://github.com/UMH-ATSD/to-do-list-final-app-mahouchester]
+
+### Previous Release Image
+
+**DockerHub image (old):**
 
 ```bash
 jamesbobbrown/todolist-mahouchester:1.3.0-snapshot
@@ -205,3 +225,43 @@ sql/backup08062026.sql
 ```
 
 This backup can be used to restore the database state and verify schema integrity.
+
+---
+
+## UI Improvement - Navigation Bar Color Enhancement
+
+### Summary
+As part of the UI enhancement initiative, the navigation bar color was updated to improve the visual appearance and user experience of the application, with improved contrast for better readability.
+
+### Changes Made
+
+**File Modified:** `src/main/resources/templates/fragments.html`
+
+**Change Details:**
+
+1. **Background Color Update**
+   - **Old:** `bg-dark` (dark background)
+   - **New:** `bg-info` (cyan/light blue background)
+
+2. **Text Color Update (for contrast)**
+   - **Old:** `navbar-dark` (light text)
+   - **New:** `navbar-light` (dark text)
+
+3. **Line Modified:** Line 15
+
+**Before:**
+```html
+<nav th:fragment="menu" class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+```
+
+**After:**
+```html
+<nav th:fragment="menu" class="navbar navbar-expand-lg navbar-light bg-info mb-4">
+```
+
+### Visual Impact
+The navigation bar now displays a modern cyan/light blue color (`bg-info`) with dark text (`navbar-light`), providing:
+- Better visual appeal with a contemporary design
+- Improved contrast and readability
+- Enhanced accessibility with proper text-to-background color distinction
+- Consistent user experience while maintaining full functionality of all menu items
