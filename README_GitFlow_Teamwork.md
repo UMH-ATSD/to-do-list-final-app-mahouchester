@@ -15,9 +15,7 @@ This project is being developed by the **Mahouchester** team, composed of:
 After evaluating the previous iterations of the project, the team has agreed to continue
 development based on the version originally built by **Jaume Climent** and **Jhener**,
 which was selected as the foundation for **v1.3.0**.
----
-## 
----
+
 ## DockerHub Image
 
 The Docker image for this project has been published to DockerHub.
