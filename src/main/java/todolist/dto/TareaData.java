@@ -2,6 +2,8 @@ package todolist.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 // Data Transfer Object para la clase Tarea
 public class TareaData implements Serializable {
@@ -11,6 +13,10 @@ public class TareaData implements Serializable {
     private Long id;
     private String titulo;
     private Long usuarioId;  // Esta es la ID del usuario asociado
+
+    // NUEVO: Atributo para la fecha límite
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaLimite;
 
     // Getters y setters
 
@@ -36,6 +42,15 @@ public class TareaData implements Serializable {
 
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    // NUEVO: Getter y Setter para la fecha límite
+    public LocalDate getFechaLimite() {
+        return fechaLimite;
+    }
+
+    public void setFechaLimite(LocalDate fechaLimite) {
+        this.fechaLimite = fechaLimite;
     }
 
     // Sobreescribimos equals y hashCode para que dos tareas sean iguales

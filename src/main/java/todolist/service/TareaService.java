@@ -14,9 +14,8 @@ import org.modelmapper.ModelMapper;
 
 import java.util.Collections;
 import java.util.List;
-
+import java.time.LocalDate;
 import java.util.stream.Collectors;
-
 
 @Service
 public class TareaService {
@@ -31,13 +30,15 @@ public class TareaService {
     private ModelMapper modelMapper;
 
     @Transactional
-    public TareaData nuevaTareaUsuario(Long idUsuario, String tituloTarea) {
-        logger.debug("Añadiendo tarea " + tituloTarea + " al usuario " + idUsuario);
+    public TareaData nuevaTareaUsuario(Long idUsuario, String tituloTarea, LocalDate fechaLimite) {
+        logger.debug("Añadiendo tarea " + tituloTarea + " con fecha limite " + fechaLimite + " al usuario " + idUsuario);
         Usuario usuario = usuarioRepository.findById(idUsuario).orElse(null);
         if (usuario == null) {
             throw new TareaServiceException("Usuario " + idUsuario + " no existe al crear tarea " + tituloTarea);
         }
         Tarea tarea = new Tarea(usuario, tituloTarea);
+        // NUEVO: Seteamos la fecha límite en la entidad antes de guardar
+        tarea.setFechaLimite(fechaLimite);
         tareaRepository.save(tarea);
         return modelMapper.map(tarea, TareaData.class);
     }
@@ -67,13 +68,15 @@ public class TareaService {
     }
 
     @Transactional
-    public TareaData modificaTarea(Long idTarea, String nuevoTitulo) {
-        logger.debug("Modificando tarea " + idTarea + " - " + nuevoTitulo);
+    public TareaData modificaTarea(Long idTarea, String nuevoTitulo, LocalDate fechaLimite) {
+        logger.debug("Modificando tarea " + idTarea + " - " + nuevoTitulo + " nueva fecha: " + fechaLimite);
         Tarea tarea = tareaRepository.findById(idTarea).orElse(null);
         if (tarea == null) {
             throw new TareaServiceException("No existe tarea con id " + idTarea);
         }
         tarea.setTitulo(nuevoTitulo);
+        // NUEVO: Actualizamos también la fecha en la modificación
+        tarea.setFechaLimite(fechaLimite);
         tarea = tareaRepository.save(tarea);
         return modelMapper.map(tarea, TareaData.class);
     }

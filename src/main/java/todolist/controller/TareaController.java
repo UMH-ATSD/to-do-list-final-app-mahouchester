@@ -36,15 +36,13 @@ public class TareaController {
 
     @GetMapping("/usuarios/{id}/tareas/nueva")
     public String formNuevaTarea(@PathVariable(value="id") Long idUsuario,
-                                 Model model, // Quitamos el ModelAttribute del parámetro
+                                 Model model,
                                  HttpSession session) {
 
         comprobarUsuarioLogeado(idUsuario);
 
         UsuarioData usuario = usuarioService.findById(idUsuario);
         model.addAttribute("usuario", usuario);
-
-        // ESTO ASEGURA QUE THYMELEAF TENGA EL OBJETO PARA EL th:object
         model.addAttribute("tareaData", new TareaData());
 
         return "formNuevaTarea";
@@ -57,10 +55,11 @@ public class TareaController {
 
         comprobarUsuarioLogeado(idUsuario);
 
-        tareaService.nuevaTareaUsuario(idUsuario, tareaData.getTitulo());
+        // MODIFICADO: Pasamos también la fecha límite al servicio
+        tareaService.nuevaTareaUsuario(idUsuario, tareaData.getTitulo(), tareaData.getFechaLimite());
         flash.addFlashAttribute("mensaje", "Tarea creada correctamente");
         return "redirect:/usuarios/" + idUsuario + "/tareas";
-     }
+    }
 
     @GetMapping("/usuarios/{id}/tareas")
     public String listadoTareas(@PathVariable(value="id") Long idUsuario, Model model, HttpSession session) {
@@ -85,12 +84,13 @@ public class TareaController {
 
         comprobarUsuarioLogeado(tarea.getUsuarioId());
 
-        // Creamos el DTO que va a usar el formulario
         TareaData tareaData = new TareaData();
         tareaData.setTitulo(tarea.getTitulo());
+        // NUEVO: Pasamos la fecha límite guardada al formulario de edición
+        tareaData.setFechaLimite(tarea.getFechaLimite());
 
         model.addAttribute("tarea", tarea);
-        model.addAttribute("tareaData", tareaData); // Lo pasamos explícitamente
+        model.addAttribute("tareaData", tareaData);
         return "formEditarTarea";
     }
 
@@ -103,18 +103,16 @@ public class TareaController {
         }
 
         Long idUsuario = tarea.getUsuarioId();
-
         comprobarUsuarioLogeado(idUsuario);
 
-        tareaService.modificaTarea(idTarea, tareaData.getTitulo());
+        // MODIFICADO: Pasamos la nueva fecha límite al servicio
+        tareaService.modificaTarea(idTarea, tareaData.getTitulo(), tareaData.getFechaLimite());
         flash.addFlashAttribute("mensaje", "Tarea modificada correctamente");
         return "redirect:/usuarios/" + tarea.getUsuarioId() + "/tareas";
     }
 
     @DeleteMapping("/tareas/{id}")
     @ResponseBody
-    // La anotación @ResponseBody sirve para que la cadena devuelta sea la resupuesta
-    // de la petición HTTP, en lugar de una plantilla thymeleaf
     public String borrarTarea(@PathVariable(value="id") Long idTarea, RedirectAttributes flash, HttpSession session) {
         TareaData tarea = tareaService.findById(idTarea);
         if (tarea == null) {
@@ -126,7 +124,4 @@ public class TareaController {
         tareaService.borraTarea(idTarea);
         return "";
     }
-
-
 }
-
