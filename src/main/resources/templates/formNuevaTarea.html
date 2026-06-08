@@ -13,6 +13,10 @@
             <label for="titulo">Título de la tarea:</label>
             <input class="form-control" id="titulo" name="titulo" required th:field="*{titulo}" type="text" placeholder="Ej: Comprar pan"/>
         </div>
+        <div class="form-group mb-3">
+            <label for="fechaLimite" class="form-label">Fecha Límite (Opcional):</label>
+            <input type="date" class="form-control" id="fechaLimite" th:field="*{fechaLimite}"/>
+        </div>
             <button class="btn btn-primary" type="submit">Crear tarea</button>
             <a class="btn btn-secondary" th:href="@{/usuarios/{id}/tareas(id=${usuario.id})}">Cancelar</a>
         </div>

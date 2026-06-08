@@ -5,6 +5,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "tareas")
 public class Tarea implements Serializable {
@@ -34,6 +37,23 @@ public class Tarea implements Serializable {
         this.titulo = titulo;
         setUsuario(usuario); // Esto añadirá la tarea a la lista de tareas del usuario
     }
+
+    // 1. Añade el campo en el DTO
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaLimite;
+
+    // 2. Añade el Getter y Setter
+    public LocalDate getFechaLimite() {
+        return fechaLimite;
+    }
+
+    public void setFechaLimite(LocalDate fechaLimite) {
+        this.fechaLimite = fechaLimite;
+    }
+
+
+
+
 
     // Getters y setters básicos
 
