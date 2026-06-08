@@ -73,4 +73,4 @@ SELECT * FROM usuarios;
 ### Database Query Proof:
 Below is the terminal screenshot showing the internal database tables and the successfully persistent test user account:
 
- <img width="1533" height="833" alt="doker+postgres_test_user" src="https://github.com/user-attachments/assets/65f702e6-d59c-476e-bf97-47fc4d69054a" />
+ <img width="1533" height="833" alt="doker+postgres_test_user" src="https://github.com/user-attachments/assets/65f702e6-d59c-476e-bf97-47fc4d69054a" /
